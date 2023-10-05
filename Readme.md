@@ -1,7 +1,3 @@
-My first file in my repo.
+# Example
 
-Additional comment.
-
-
-Another test
-a
+khggk
