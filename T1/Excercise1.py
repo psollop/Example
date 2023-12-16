@@ -5,11 +5,9 @@ def calculation():
     number = 2
     while number <= 100:
         result += number
-    
-    number += 2
+        number += 2
 
     print("Sum of even numbers (Method 2):", result) 
-
 
 def main():
     calculation()
