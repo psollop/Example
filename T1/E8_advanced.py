@@ -16,7 +16,6 @@ def roll_two_dice():
 
 def main():
 
-    # 
     result = []
     num_exec = 1000
     
