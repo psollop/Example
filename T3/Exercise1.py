@@ -1,4 +1,4 @@
-import math;
+import math
 
 class Person:
     def __init__(self, name, surname, age, address, phone_number):
@@ -6,20 +6,16 @@ class Person:
         self.surname = surname
         self.age = age
         self.address = address
-        self.phone_number = phone_number
+        self.phone_number = str(phone_number)  # Convert phone_number to string
 
     def copy(self):
-        new = Person(self.name, self.surname, self.address, self.phone_number)
-        return new
-
-    def __del__(self):
-        print("Destructor called")
-
+        new_person = Person(self.name, self.surname, self.age, self.address, self.phone_number)
+        return new_person
 
     def get_name(self):
         return self.name
 
-    def set_name(self, name:str)->None:
+    def set_name(self, name):
         self.name = name
 
     def get_surname(self):
@@ -44,34 +40,27 @@ class Person:
         return self.phone_number
 
     def set_phone_number(self, phone_number):
-        self.phone_number = phone_number
+        self.phone_number = str(phone_number)
 
     def __str__(self):
-        print(f"Name: {self.name}")
-        print(f"Surname: {self.surname}")
-        print(f"Age: {self.age}")
-        print(f"Address: {self.address}")
-        print(f"Phone Number: {self.phone_number}")
+        return f"Name: {self.name}\nSurname: {self.surname}\nAge: {self.age}\nAddress: {self.address}\nPhone Number: {self.phone_number}"
 
 # Example usage of the Person class:
 person = Person("Daniel", "M", 30, "123 Main St", "555-123-4567")
 person1 = Person("Daniel", "M", 30, "123 Main St", 123456)
 
-copy = person
-copy.age = 18
+copy = person.copy()
+copy.set_age(18)
 
 print(person.get_age())
 
-person.__repr__()
-person.__str__()
+print(person.__str__())
 
 value = math.pi
 
-value.
-
 print(value.__str__())
 
-person1.__del__()
+# The __del__ method is not needed and is omitted
 
 # You can also use the getters and setters to access and modify attributes:
 person.set_age(35)
