@@ -9,6 +9,9 @@ def bubble_sort(arr):
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 
+
+# DE MAYOR A MENOR SOLO HAY QUE CAMBIAR EL MAYOR DEL IF POR UN MENOR
+                
 # Example usage:
 if __name__ == "__main__":
     # Input list of numbers
@@ -20,3 +23,27 @@ if __name__ == "__main__":
     bubble_sort(numbers)
 
     print("Sorted list:", numbers)
+
+
+def bubble_sort_alphabetical(words):
+    n = len(words)
+
+    # Recorre todos los elementos de la lista
+    for i in range(n):
+        # Las últimas i palabras ya están en su lugar, así que no necesitamos revisarlas
+        for j in range(0, n-i-1):
+            # Intercambia si la palabra encontrada es mayor que la siguiente palabra
+            if words[j] > words[j+1]:  # Cambiado el signo para ordenar alfabéticamente
+                words[j], words[j+1] = words[j+1], words[j]
+
+# Uso de ejemplo:
+if __name__ == "__main__":
+    # Lista de palabras de entrada
+    palabras = ["perro", "gato", "manzana", "banana", "elefante"]
+
+    print("Lista original:", palabras)
+
+    # Llama a la función bubble_sort_alphabetical para ordenar la lista alfabéticamente
+    bubble_sort_alphabetical(palabras)
+
+    print("Lista ordenada alfabéticamente:", palabras)
