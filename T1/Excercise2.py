@@ -30,3 +30,7 @@ def factorial2(n):
 num = 5  # Replace with the number for which you want to calculate the factorial
 result = factorial(num)
 print(f"The factorial of {num} is {result}")
+
+num = 6  # Replace with the number for which you want to calculate the factorial
+result = factorial2(num)
+print(f"The factorial of {num} is {result}")
