@@ -1,0 +1,1 @@
+##Sum of even numbers: Write a program that sums all the even numbers from 1 to 100.
