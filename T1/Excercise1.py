@@ -7,7 +7,7 @@ def calculation():
         result += number
         number += 2
 
-    print("Sum of even numbers (Method 2):", result) 
+    print("Sum of odd numbers (Method 2):", result) 
 
 def main():
     calculation()
