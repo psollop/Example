@@ -9,12 +9,12 @@ def show_menu():
     print("4. Quit")
 
 def add_item(shopping_list, item):
-    #TODO
+    shopping_list.append(item)
     print(f"{item} has been added to the shopping list.")
 
 def remove_item(shopping_list, item):
     if item in shopping_list:
-        #TODO
+        shopping_list.remove(item)
         print(f"{item} has been removed from the shopping list.")
     else:
         print(f"{item} is not in the shopping list.")
@@ -24,7 +24,7 @@ def show_shopping_list(shopping_list):
         print("The shopping list is empty.")
     else:
         print("Shopping List:")
-        for index, item in #ToDo :
+        for index, item in shopping_list :
             print(f"{index}. {item}")
 
 def main():

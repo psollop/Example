@@ -1,0 +1,21 @@
+import re
+from collections import Counter
+
+def count_letters(text):
+    # Remove non-alphabetic characters and convert text to lowercase
+    text = re.sub(r'[^a-zA-Z]', '', text.lower())
+    
+    # Count the frequency of each letter using Counter
+    letter_counts = Counter(text)
+    
+    return letter_counts
+
+# Example usage:
+if __name__ == "__main__":
+    input_text = str(input("Text: "))
+    
+    letter_counts = count_letters(input_text)
+    
+    # Print the letter counts
+    for letter, count in letter_counts.items():
+        print(f"'{letter}': {count}")
