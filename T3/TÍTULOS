@@ -1,6 +1,5 @@
 # TEMA 3
 
-# E1 ->Create a class to represent a person. The class should have the following attributes: name, surname, age, address, and phone number. It should also have the following methods:
-        # • Constructor: initializes the attributes with default values.
-        # • Getters and setters: to access and modify the attributes.
-        # • Method to print the person's information.
+# E1 -> PERSONA
+# E2 -> COCHE
+# E3 -> CUENTA BANCO
