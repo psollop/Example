@@ -57,10 +57,10 @@ class Rectangle(Figure):
         self.width = width
 
     def calculate_area(self):
-        self.area = self.length * self.width
+        self.area = self.height * self.width
 
     def calculate_perimeter(self):
-        self.perimeter = 2 * (self.length + self.width)
+        self.perimeter = 2 * (self.height + self.width)
 
 if __name__ == "__main__":
     square = Square(5)

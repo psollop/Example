@@ -1,5 +1,5 @@
 class BankAccount:
-    def __init__(self, #TODO):
+    def __init__(self, account_number, holder, balance, account_type):
         self.account_number = account_number
         self.holder = holder
         self.balance = balance
@@ -30,11 +30,18 @@ class BankAccount:
         self.account_type = account_type
 
     def deposit(self, amount):
-        ## TODO
+        if amount > 0:
+            self.balance += amount
+            return True
+        else:
+            return False
 
     def withdraw(self, amount):
-        ## TODO
-
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            return True
+        else:
+            return False
     def print_balance(self):
         print(f"Account Number: {self.account_number}")
         print(f"Account Holder: {self.holder}")
