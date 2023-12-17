@@ -1,0 +1,36 @@
+import datetime
+
+class Person:
+
+
+    def __init__(self, name="pepe", age=0, creationTime=None):
+        self.name = name  # Public attribute
+        self.__age = age # Private attribute
+        self.creationTime = creationTime if creationTime else datetime.date.today()
+
+
+    # Public method to get the age (read-only access to the private attribute)
+    def get_age(self):
+        return self.__age
+
+    # Public method to set the age (write access to the private attribute)
+    def set_age(self, age):
+        if 0 < age <= 120:  # Assuming a reasonable age range
+            self.__age = age
+        else:
+            print("Invalid age value.")
+
+# Create a person with default values
+person = Person()
+
+# Accessing attributes using proper names
+print("Name:", person.name)
+print("Creation Time:", person.creationTime)
+
+# Using public methods to access and modify the private attribute
+print("Current age:", person.get_age())
+
+person.set_age(35)
+print("Updated age:", person.get_age())
+
+person.set_age(150)  # Trying to set an invalid age
