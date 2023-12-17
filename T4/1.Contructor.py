@@ -12,3 +12,4 @@ ManoloObject = Person("Manolo","12345678V",33)
 CamelCaseNotation = Person("Luis","22222222J",27)
 
 print(ManoloObject)
+print(CamelCaseNotation)

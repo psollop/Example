@@ -1,0 +1,24 @@
+class PlainCat:
+    def __init__(self, name, gender):
+        self._name = name
+        self._gender = gender
+        
+
+    @property
+    def species(self):
+        return self._species
+
+    @species.setter
+    def species(self, value):
+        self._species = value.upper()
+
+# Example usage:
+garfield = PlainCat("Garfield", "macho")
+
+# Setting the species using the setter method
+garfield.species = "Romano"
+
+# Accessing the species using the @property method
+print(garfield.species)  # Output: 'ROMANO'
+
+  
