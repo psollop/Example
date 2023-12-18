@@ -1,0 +1,129 @@
+class Publication:
+    def __init__(self, title, authors, year):
+        self.title = title
+        self.authors = authors
+        self.year = year
+        self.status = "available"
+
+    def __str__(self):
+        return f"{self.title} - {self.authors} ({self.year})"
+
+
+class Book(Publication):
+    def __init__(self, title, authors, year, isbn, pages):
+        super().__init__(title, authors, year)
+        self.isbn = isbn
+        self.pages = pages
+
+
+class Journal(Publication):
+    def __init__(self, title, authors, year, edition, periodicity):
+        super().__init__(title, authors, year)
+        self.edition = edition
+        self.periodicity = periodicity
+
+
+class User:
+    def __init__(self, name, user_id, max_pubs):
+        self.name = name
+        self.user_id = user_id
+        self.pubs = []
+        self.max_pubs = max_pubs
+
+    def lend_pub(self, publication):
+        if len(self.pubs) < self.max_pubs:
+            self.pubs.append(publication)
+            publication.status = "borrowed"
+            print(f"The Book '{publication.title}' has been lent to {self.name}.")
+        else:
+            print(f"{self.name} has reached the maximum limit of borrowed items.")
+
+
+    def return_pub(self, publication):
+        if publication in self.pubs:
+            self.pubs.remove(publication)
+            publication.status = "available"
+            print(f"The Book '{publication.title}' was returned by {self.name}.")
+        else:
+            print(f"{self.name} did not borrow {publication.title} from this library.")
+
+
+class Professor(User):
+    def __init__(self, name, user_id, department, employee_id):
+        super().__init__(name, user_id, max_pubs=2)
+        self.department = department
+        self.employee_id = employee_id
+
+
+class Student(User):
+    def __init__(self, name, user_id, grade, student_id):
+        super().__init__(name, user_id, max_pubs=1)
+        self.grade = grade
+        self.student_id = student_id
+
+
+class Library:
+    def __init__(self, name):
+        self.name = name
+        self.catalogue = []
+        self.users = []
+
+    def show_catalog(self):
+        print(f"Catalogue of the library: {self.name}")
+        print("--------------------------------------------------")
+        for pub in self.catalogue:
+            print(pub)
+        print("--------------------------------------------------")
+
+    def add_publication(self, publication):
+        self.catalogue.append(publication)
+
+    def register_user(self, user):
+        self.users.append(user)
+
+    def lend_pub(self, user, publication):
+        if user in self.users and publication in self.catalogue:
+            user.lend_pub(publication)
+        elif user not in self.users:
+            print(f"The user {user.name} is not registered.")
+        else:
+            print(f"The Book '{publication.title}' is not in the library catalogue.")
+
+    def return_pub(self, user, publication):
+        if user in self.users and publication in self.catalogue:
+            user.return_pub(publication)
+        elif user not in self.users:
+            print(f"The user {user.name} is not registered.")
+        else:
+            print(f"The Book '{publication.title}' is not in the library catalogue.")
+
+
+# Test the Library Management System
+library = Library("Loyola Andalucía Library")
+
+book1 = Book("Learning Python II", ["Javier Perez", "Daniel Muñoz"], 2023, "1234567890123", 300)
+journal1 = Journal("Technology Journal", ["Stephen Curry", "LeBron James"], 2022, 7, "Annual")
+journal2 = Journal("Medical Journal", ["Michael Jordan", "Larry Bird"], 2023, 5, "Monthly")
+professor1 = Professor("Professor Tija", "123456789", "Philosophy", "123456")
+student1 = Student("Ashkabos Teberio", "987654321", "DAN", "654321")
+student2 = Student("Rachel Tonali", "656565656", "ADE+DAN", "454322")
+
+library.add_publication(book1)
+library.add_publication(journal1)
+library.add_publication(journal2)
+library.register_user(professor1)
+library.register_user(student1)
+
+library.show_catalog()
+
+library.lend_pub(professor1, book1)
+library.lend_pub(student1, book1)  # This should print that the book is not available
+print(student1.pubs)  # This should print an empty list
+
+library.return_pub(professor1, book1)
+library.lend_pub(student1, book1)  # This should print that the book is available now
+print(student1.pubs)
+
+# Trying to lend a publication to an unregistered user
+student3 = Student("John Doe", "111111111", "ENG", "999999")
+library.lend_pub(student3, journal1)  # This should print that the user is not registered
