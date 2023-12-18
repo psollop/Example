@@ -10,4 +10,5 @@ a = A()
 print(a.publicA)
 
 # Private attibute should NOT be accesible directly.
-print(a.__privateB)
+# print(a.__privateB)
+
