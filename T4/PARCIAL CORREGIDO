@@ -102,33 +102,33 @@ class Library:
         else:
             print(f"The Book '{publication.title}' is not in the library catalogue.")
 
-
+if __name__ == "__main__":
 # Test the Library Management System
-library = Library("Loyola Andalucía Library")
+    library = Library("Loyola Andalucía Library")
 
-book1 = Book("Learning Python II", ["Javier Perez", "Daniel Muñoz"], 2023, "1234567890123", 300)
-journal1 = Journal("Technology Journal", ["Stephen Curry", "LeBron James"], 2022, 7, "Annual")
-journal2 = Journal("Medical Journal", ["Michael Jordan", "Larry Bird"], 2023, 5, "Monthly")
-professor1 = Professor("Professor Tija", "123456789", "Philosophy", "123456")
-student1 = Student("Ashkabos Teberio", "987654321", "DAN", "654321")
-student2 = Student("Rachel Tonali", "656565656", "ADE+DAN", "454322")
+    book1 = Book("Learning Python II", ["Javier Perez", "Daniel Muñoz"], 2023, "1234567890123", 300)
+    journal1 = Journal("Technology Journal", ["Stephen Curry", "LeBron James"], 2022, 7, "Annual")
+    journal2 = Journal("Medical Journal", ["Michael Jordan", "Larry Bird"], 2023, 5, "Monthly")
+    professor1 = Professor("Professor Tija", "123456789", "Philosophy", "123456")
+    student1 = Student("Ashkabos Teberio", "987654321", "DAN", "654321")
+    student2 = Student("Rachel Tonali", "656565656", "ADE+DAN", "454322")
 
-library.add_publication(book1)
-library.add_publication(journal1)
-library.add_publication(journal2)
-library.register_user(professor1)
-library.register_user(student1)
+    library.add_publication(book1)
+    library.add_publication(journal1)
+    library.add_publication(journal2)
+    library.register_user(professor1)
+    library.register_user(student1)
 
-library.show_catalog()
+    library.show_catalog()
 
-library.lend_pub(professor1, book1)
-library.lend_pub(student1, book1)  # This should print that the book is not available
-print(student1.pubs)  # This should print an empty list
+    library.lend_pub(professor1, book1)
+    library.lend_pub(student1, book1)  # This should print that the book is not available
+    print(student1.pubs)  # This should print an empty list
 
-library.return_pub(professor1, book1)
-library.lend_pub(student1, book1)  # This should print that the book is available now
-print(student1.pubs)
+    library.return_pub(professor1, book1)
+    library.lend_pub(student1, book1)  # This should print that the book is available now
+    print(student1.pubs)
 
-# Trying to lend a publication to an unregistered user
-student3 = Student("John Doe", "111111111", "ENG", "999999")
-library.lend_pub(student3, journal1)  # This should print that the user is not registered
+    # Trying to lend a publication to an unregistered user
+    student3 = Student("John Doe", "111111111", "ENG", "999999")
+    library.lend_pub(student3, journal1)  # This should print that the user is not registered
