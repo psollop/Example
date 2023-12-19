@@ -8,6 +8,7 @@ class Publication:
     def __str__(self):
         return f"{self.title} - {self.authors} ({self.year})"
 
+
 class Book(Publication):
     def __init__(self, title: str, authors: list[str], year: int, isbn: str, num_pages: int, status: str = "available"):
         super().__init__(title, authors, year, status)
@@ -18,18 +19,19 @@ class Book(Publication):
         self.num_pages = num_pages
     
     def __str__(self):
-        return f"{super().__str__()} "
-
-
+        return f"{super().__str__()} ISBN: {self.isbn}, Pages: {self.num_pages}"
 
 
 class Journal(Publication):
-    def __init__ (self, title: str, authors: list[str], year: int, edition_number: int, periodicity: str, status: str = "available"):
-        super().__init__(title,authors,year,status)
-        self.edition_number= edition_number
-        self.periodicity= periodicity
+    def __init__(self, title: str, authors: list[str], year: int, edition_number: int, periodicity: str, status: str = "available"):
+        super().__init__(title, authors, year, status)
+        self.edition_number = edition_number
+        self.periodicity = periodicity
 
-   
+    def __str__(self):
+        return f"{super().__str__()} Edition: {self.edition_number}, Periodicity: {self.periodicity}"
+
+
 class User:
     def __init__(self, name: str, userID: str, max_pubs: int):
         self.name = name
@@ -64,12 +66,9 @@ class User:
             print(f"{self.name} did not borrow '{publication.title}' from this library or it's not currently borrowed.")
 
 
-
-
 class Professor(User):
-    def __init__ (self, name: str, userID: str, department: str, employee_id:str, max_pubs:int = 2):
+    def __init__(self, name: str, userID: str, department: str, employee_id: str, max_pubs: int = 2):
         super().__init__(name, userID, max_pubs)
-
         self.department = department
 
         if len(employee_id) == 6:
@@ -77,19 +76,20 @@ class Professor(User):
         else:
             print("Employee_id must be a string of length 6.")
 
-class Student(User):
-    def __init__(self, name: str, userID: str, grade:str, studentID: str, max_pubs:int = 1):
-        super().__init__(name, userID, max_pubs)
 
+class Student(User):
+    def __init__(self, name: str, userID: str, grade: str, studentID: str, max_pubs: int = 1):
+        super().__init__(name, userID, max_pubs)
         self.grade = grade
 
         if len(studentID) == 6:
-            self.studentID= studentID
+            self.studentID = studentID
         else:
             print("StudentID must be a sting of length 6.")
 
+
 class Library:
-    def __init__ (self, name):
+    def __init__(self, name):
         self.name = name
         self.catalogue = []
         self.users = []
@@ -100,30 +100,29 @@ class Library:
         for pub in self.catalogue:
             print(pub)
         print("---------------------------------------")
-    
+
     def add_publication(self, publication):
         self.catalogue.append(publication)
 
-    def register_user(self,user):
+    def register_user(self, user):
         self.users.append(user)
 
-    def lend_pub(self,user,publication):
+    def lend_pub(self, user, publication):
         if user in self.users and publication in self.catalogue:
             user.lend_pub(publication)
-            publication.status = "borrowed"
         elif user not in self.users:
             print(f"The user {user.name} is not registered.")
         else:
-            print(f"The book {publication.title} is not in the library catalogue.")
+            print(f"The Book '{publication.title}' is not in the library catalogue.")
 
-    def return_pub(self,user,publication):
+    def return_pub(self, user, publication):
         if user in self.users and publication in self.catalogue:
             user.return_pub(publication)
-            publication.status="available"
         elif user not in self.users:
             print(f"The user {user.name} is not registered.")
         else:
-            print(f"The book {publication.title} is not in the library catalogue.")
+            print(f"The Book '{publication.title}' is not in the library catalogue.")
+
 
 if __name__ == "__main__":
     library = Library("Loyola Andalucía Library")
@@ -148,11 +147,12 @@ if __name__ == "__main__":
     
     library.show_catalogue()
     library.lend_pub(professor1, book1)
-    library.lend_pub(student1, book1) # the book should be borrowed
-    print(student1.pubs) # empty list
+    library.lend_pub(student1, book1)  # the book should be borrowed
+    print(student1.pubs)  # empty list
     library.return_pub(professor1, book1)
     library.lend_pub(student1, book1)   # the book should be available now
     library.lend_pub(student1, journal2)
     print(student1.pubs)
-    library.lend_pub(student2, journal1) # User not registred
+    library.lend_pub(student2, journal1)
+    
 

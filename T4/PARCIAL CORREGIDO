@@ -41,6 +41,9 @@ class User:
             self.pubs.append(publication)
             publication.status = "borrowed"
             print(f"The Book '{publication.title}' has been lent to {self.name}.")
+        elif publication.status == "borrowed":
+            print(f"{publication.title} is not available") 
+            
         else:
             print(f"{self.name} has reached the maximum limit of borrowed items.")
 
