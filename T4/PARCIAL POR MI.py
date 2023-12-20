@@ -16,17 +16,17 @@ class Book(Publication):
             self.isbn = isbn
         else:
             print("ISBN must be a string of 13 length.")
+    
+    def __str__(self):
+        return f" {self.title} - {self.authors} - ({self.year})"
 
     
     
 class Journal(Publication):
-    def __init__(self,title: str,authors: list[str],year: int,edition_number: int,periodicity: str, status: str = "available"):
-        super().__init__(title,authors,year,status)
-        self.edition_number = edition_number
+    def __init__(self, title: str, authors: list[str], year: int, edition_num: int, periodicity: str):
+        super().__init__(title, authors, year, "available")
+        self.edition_num = edition_num
         self.periodicity = periodicity
-    
-    
-
 
 class User:
     def __init__(self, name: str, user_id: str, max_pubs: int):
@@ -40,6 +40,7 @@ class User:
         self.pubs = []
         self.max_pubs = max_pubs
 
+    
    
     
 
@@ -142,6 +143,8 @@ if __name__ == "__main__":
     library.add_publication(journal2)
     library.register_user(professor1)
     library.register_user(student1)
+
+    
     library.show_catalogue()
     library.lend_pub(professor1, book1)
     library.lend_pub(student1, book1) # the book should be borrowed
