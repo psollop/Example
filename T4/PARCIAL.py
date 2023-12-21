@@ -1,156 +1,68 @@
-class Publication:
-    def __init__(self, title: str, authors: list[str], year: int, status: str = "available"):
-        self.title = title 
-        self.authors = authors
-        self.year = year
-        self.status = status
 
-    def __str__(self):
-        return f"{self.title} - {self.authors} ({self.year})"
+# Create in Python library system that handles publications, users, and the library system itself. The system should include the following classes with their respective attributes and methods:
+# - Publication: This is the base class Book AND Magazine will inherit.
+# Attributes: title ( str), authors ( list of str), year of publication (int), status ("available", "borrowed")
+# - Book: inherits from publication
+# Attributes isbn(str of length 13, digits only), number of pages(int)
+# -Journal( inherits from publication)
+# Attributes edition number: int, periodicity: str
+# -User: Professor and Student inherit from this class.
+   # Attributes name(str), user_id(str of length 9, digits only), pubs(list of publication)
+    # Methods: 
+   # - lend_pub(Publication): Adds a Publication to the publications list. It has to change the Book status.
+   # - return_pub(Publication) Removes a Publication to the publications list. It has to change the book status.
 
-class Book(Publication):
-    def __init__(self, title: str, authors: list[str], year: int, isbn: str, num_pages: int, status: str = "available"):
-        super().__init__(title, authors, year, status)
-        if len(isbn) == 13 and isbn.isdigit():
-            self.isbn = isbn
-        else:
-            print("ISBN must be a string of length 13 containing only digits")
-        self.num_pages = num_pages
-    
-    def __str__(self):
-        return f"{super().__str__()} "
+#-Professor(inherits from User):
+#Attributes: department:str, employee_id(str of length 6), max_pubs =2
 
+#-Student(inherits from User):
+Attributes: grade:str, student_id(str of length 6), max_pubs =1
 
-
-
-class Journal(Publication):
-    def __init__ (self, title: str, authors: list[str], year: int, edition_number: int, periodicity: str, status: str = "available"):
-        super().__init__(title,authors,year,status)
-        self.edition_number= edition_number
-        self.periodicity= periodicity
-
-   
-class User:
-    def __init__(self, name: str, userID: str, max_pubs: int):
-        self.name = name
-
-        if len(userID) == 9 and userID.isdigit():
-            self.userID = userID
-        else:
-            print("userID must be a string of length 9 containing only digits")
-
-        self.pubs = []
-        self.max_pubs = max_pubs
-
-    def __str__(self):
-        return f"{self.name} (ID: {self.userID})"
-
-    def lend_pub(self, publication):
-        if len(self.pubs) < self.max_pubs and publication.status == "available":
-            self.pubs.append(publication)
-            publication.status = "borrowed"
-            print(f"The Book '{publication.title}' has been lent to {self.name}.")
-        elif len(self.pubs) >= self.max_pubs:
-            print(f"{self.name} has reached the maximum limit of borrowed items.")
-        else:
-            print(f"The Book '{publication.title}' is already borrowed.")
-
-    def return_pub(self, publication):
-        if publication in self.pubs and publication.status == "borrowed":
-            self.pubs.remove(publication)
-            publication.status = "available"
-            print(f"The book '{publication.title}' was returned by {self.name}.")
-        else:
-            print(f"{self.name} did not borrow '{publication.title}' from this library or it's not currently borrowed.")
+#-Library:
+#Attributes: name(str), catalogue(a list of publication objects), list of users (a list of users objects).object
+#Methods:
+    #- show catalogue(): Shows the objects in the library catalogue.
+    #-add_publication(Publication): Adds a new publication to the catalogue
+   # - register_user(User): Register a new user in the library.
+   # - lend_pub(User, Publication): Auser can borrow a publication from the catalogue. It should check that both the user and the Publication are registered. This method should modify the publication status and update the User's list of publication ( as long as their maimum number of publication allows).
+   # - return_pub(User, Publication): Allows a user to return a borrowed publication. tHIS METHOD should modify the publication status and update the User's list of publications.
 
 
+#TEST CODE
+#library = Library("Loyola Andalucía Library")
+#book1 =Book("Learning Python II", ["Javier Perez", "Daniel Muñoz"], 2023, "1234567890123", 300)
+#journal1= Journal("Technology Journal", ["Stephen Curry", "Lebron James"], 2022, 7, "Annual")
+#journal2= Journal("Medical Journal", ["Michael Jordan", "Larry Bird"], 2023, 5, "Monthly")
+#professor1= Professor("Professor Tija", "123456789", "Philosophy", "123456")
+#student1=Student("Ashkabos Teberio", "987654321", "DAN", "654321")
+#student2=Student("Rachel Tonali", "656565656", "ADE+DAN", "454322")
 
+#library.add_publication(book1)
+#library.add_publication(journal1)
+#library.add_publication(journal2)
+#library.register_user(student1)
+#library.register_user(professor1)
 
-class Professor(User):
-    def __init__ (self, name: str, userID: str, department: str, employee_id:str, max_pubs:int = 2):
-        super().__init__(name, userID, max_pubs)
+#library.show_catalogue()
+#library.lend_pub(professor1,book1)
+#print(student1.pubs) # empty list
+#library.lend_pub(student1,book1) #the book should be borrowed
+#library.return_pub(professor1,book1)
+#library.lend_pub(student1,book1) #the book should be available now
+#library.lend_pub(student1, journal2)
+#print(student1.pubs)
+#library.lend_pub(student2,journal1) # user not registered
 
-        self.department = department
-
-        if len(employee_id) == 6:
-            self.employee_id = employee_id
-        else:
-            print("Employee_id must be a string of length 6.")
-
-class Student(User):
-    def __init__(self, name: str, userID: str, grade:str, studentID: str, max_pubs:int = 1):
-        super().__init__(name, userID, max_pubs)
-
-        self.grade = grade
-
-        if len(studentID) == 6:
-            self.studentID= studentID
-        else:
-            print("StudentID must be a sting of length 6.")
-
-class Library:
-    def __init__ (self, name):
-        self.name = name
-        self.catalogue = []
-        self.users = []
-
-    def show_catalogue(self):
-        print(f"Catalogue of the library: {self.name}")
-        print("---------------------------------------")
-        for pub in self.catalogue:
-            print(pub)
-        print("---------------------------------------")
-    
-    def add_publication(self, publication):
-        self.catalogue.append(publication)
-
-    def register_user(self,user):
-        self.users.append(user)
-
-    def lend_pub(self,user,publication):
-        if user in self.users and publication in self.catalogue:
-            user.lend_pub(publication)
-            publication.status = "borrowed"
-        elif user not in self.users:
-            print(f"The user {user.name} is not registered.")
-        else:
-            print(f"The book {publication.title} is not in the library catalogue.")
-
-    def return_pub(self,user,publication):
-        if user in self.users and publication in self.catalogue:
-            user.return_pub(publication)
-            publication.status="available"
-        elif user not in self.users:
-            print(f"The user {user.name} is not registered.")
-        else:
-            print(f"The book {publication.title} is not in the library catalogue.")
-
-if __name__ == "__main__":
-    library = Library("Loyola Andalucía Library")
-    book1 = Book("Learning Python II",
-                ["Javier Perez", "Daniel Muñoz"],
-                2023, "1234567890123", 300)
-    journal1 = Journal("Technology Journal",
-                    ["Stephen Curry", "LeBron James"],
-                    2022, 7, "Annual")
-    journal2 = Journal("Medical Journal",
-                    ["Michael Jordan", "Larry Bird"],
-                    2023, 5, "Monthly")
-    professor1 = Professor("Professor Tija", "123456789", "Philosophy", "123456")
-    student1 = Student("Ashkabos Teberio", "987654321", "DAN", "654321")
-    student2 = Student("Rachel Tonali", "656565656", "ADE+DAN", "454322")
-    library.add_publication(book1)
-    library.add_publication(journal1)
-    library.add_publication(journal2)
-    library.register_user(professor1)
-    library.register_user(student1)
-    library.show_catalogue()
-    library.lend_pub(professor1, book1)
-    library.lend_pub(student1, book1) # the book should be borrowed
-    print(student1.pubs) # empty list
-    library.return_pub(professor1, book1)
-    library.lend_pub(student1, book1)   # the book should be available now
-    library.lend_pub(student1, journal2)
-    print(student1.pubs)
-    library.lend_pub(student2, journal1) # User not registred
-
+#Output:
+#Catalogue of the library: Loyola Andalucía Library
+#-------------------------------------------------------
+#--------------------------------------------------------
+#(show catalogue)
+#The book learning python II has been lent to professor tija
+#The book learning python II is not available
+#[]
+#The book learning python II was returned by professor tija
+#The book learning python II has been lent to Ashkabos Teberio
+#Ashkabos Teberio has reached the maximum limit of borrowed items
+#[learning python II- ['Javier perez', 'Daniel Muñoz'] (2023)]
+#The user or publication is not registered
